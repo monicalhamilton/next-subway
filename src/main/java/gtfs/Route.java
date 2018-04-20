@@ -2,7 +2,7 @@ package gtfs;
 
 import com.opencsv.bean.CsvBindByName;
 
-public class Route {
+public class Route implements GtfsIdentified {
 
     @CsvBindByName(column = "route_id")
     private String routeId;
@@ -24,6 +24,11 @@ public class Route {
     private String routeTextColor;
 
     public String getRouteId() {
+        return routeId;
+    }
+
+    @Override
+    public String getId() {
         return routeId;
     }
 
