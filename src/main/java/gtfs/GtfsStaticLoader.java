@@ -6,7 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Collection;
 
-class GtfsStaticDataLoader {
+class GtfsStaticLoader {
 
     private static final String DIR = "/google_transit";
 

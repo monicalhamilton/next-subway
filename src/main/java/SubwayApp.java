@@ -1,28 +1,11 @@
-import gtfs.GtfsStaticData;
+import gtfs.RealtimeAccess;
+
+import java.io.IOException;
 
 public class SubwayApp {
-
-    public static void main(String[] args) {
-        /*
-        URL url = new URL("http://datamine.mta.info/mta_esi.php?key=bd9ac687cf59159a66985f1d28235316");
-        NyctSubway.NyctFeedHeader nyctFeedHeader = NyctSubway.NyctFeedHeader.parseFrom(url.openStream());
-        //System.out.println(nyctFeedHeader);
-
-        GtfsRealtime.FeedMessage message = GtfsRealtime.FeedMessage.parseFrom(url.openStream());
-        //System.out.println(message);
-        //System.out.println(message.getEntityList().get(0).getTripUpdate());
-
-        NyctSubway.NyctStopTimeUpdate update = NyctSubway.NyctStopTimeUpdate.parseFrom(url.openStream());
-        //System.out.println(update);
-
-
-        GtfsRealtime.TripDescriptor trip = message.getEntityList().get(0).getTripUpdate().getTrip();
-        System.out.println(trip);
-        System.out.println(new Routes().findRoute(trip.getRouteId()));
-        */
-
-        System.out.println(GtfsStaticData.ROUTES.get("R"));
-        System.out.println(GtfsStaticData.STOPS.get("101"));
+    public static void main(String[] args) throws IOException {
+        System.out.println(RealtimeAccess.nextArrivals("R32N"));
+        System.out.println(RealtimeAccess.tripUpdates("R"));
     }
 
 }

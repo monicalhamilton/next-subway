@@ -6,7 +6,7 @@ import java.util.Map;
 
 import static java.util.stream.Collectors.toMap;
 
-public class GtfsStaticData {
+public class GtfsStatic {
     public static final Map<String, Route> ROUTES;
     public static final Map<String, Stop> STOPS;
 
@@ -20,7 +20,7 @@ public class GtfsStaticData {
     }
 
     private static <T extends GtfsIdentified> Map<String, T> loadData(Class<T> clazz, String filename) throws IOException {
-        Collection<T> data = new GtfsStaticDataLoader().parseData(clazz, filename);
+        Collection<T> data = new GtfsStaticLoader().parseData(clazz, filename);
         return data.stream().collect(toMap(GtfsIdentified::getId, d -> d));
     }
 }

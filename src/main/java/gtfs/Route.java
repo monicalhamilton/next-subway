@@ -32,6 +32,38 @@ public class Route implements GtfsIdentified {
         return routeId;
     }
 
+    public String getAgencyId() {
+        return agencyId;
+    }
+
+    public String getRouteShortName() {
+        return routeShortName;
+    }
+
+    public String getRouteLongName() {
+        return routeLongName;
+    }
+
+    public String getRouteDescription() {
+        return routeDescription;
+    }
+
+    public String getRouteType() {
+        return routeType;
+    }
+
+    public String getRouteUrl() {
+        return routeUrl;
+    }
+
+    public String getRouteColor() {
+        return routeColor;
+    }
+
+    public String getRouteTextColor() {
+        return routeTextColor;
+    }
+
     @Override
     public String toString() {
         return "Route{" +

@@ -15,8 +15,7 @@ public class Stop implements GtfsIdentified {
     @CsvBindByName(column = "stop_lon")
     private double stopLongitude;
     // "zone_id"
-    @CsvBindByName(column = "stop_url")
-    private String stopUrl;
+    // "stop_url"
     @CsvBindByName(column = "location_type")
     private String locationType;
     @CsvBindByName(column = "parent_station")
@@ -27,6 +26,30 @@ public class Stop implements GtfsIdentified {
         return stopId;
     }
 
+    public String getStopId() {
+        return stopId;
+    }
+
+    public String getStopName() {
+        return stopName;
+    }
+
+    public double getStopLatitude() {
+        return stopLatitude;
+    }
+
+    public double getStopLongitude() {
+        return stopLongitude;
+    }
+
+    public String getLocationType() {
+        return locationType;
+    }
+
+    public String getParentStation() {
+        return parentStation;
+    }
+
     @Override
     public String toString() {
         return "Stop{" +
@@ -34,7 +57,6 @@ public class Stop implements GtfsIdentified {
                 ", stopName='" + stopName + '\'' +
                 ", stopLatitude=" + stopLatitude +
                 ", stopLongitude=" + stopLongitude +
-                ", stopUrl='" + stopUrl + '\'' +
                 ", locationType='" + locationType + '\'' +
                 ", parentStation='" + parentStation + '\'' +
                 '}';
