@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toList;
 
@@ -23,24 +24,34 @@ public class RealtimeAccess {
 
     private static final String API_KEY = "bd9ac687cf59159a66985f1d28235316";
 
-    public static List<Arrival> nextArrivals(String stopId) throws IOException {
-        return getFeed().getEntityList().stream()
-                .filter(GtfsRealtime.FeedEntity::hasTripUpdate)
-                .map(GtfsRealtime.FeedEntity::getTripUpdate)
-                .map(GtfsRealtime.TripUpdate::getStopTimeUpdateList)
+    public static List<Arrival> nextArrivals(String stopId, String routeId) throws IOException {
+        return getUpdates()
+                .filter(tripUpdate -> tripUpdate.getRoute().getId().equals(routeId))
+                .map(TripUpdate::getArrivals)
                 .flatMap(Collection::stream)
-                .filter(stopTimeUpdate -> stopTimeUpdate.getStopId().equals(stopId))
-                .map(Arrival::fromGtfs)
+                .filter(arrival -> arrival.getStop().getId().equals(stopId))
                 .collect(toList());
-
     }
+
+    public static List<Arrival> nextArrivals(String stopId) throws IOException {
+        return getUpdates()
+                .map(TripUpdate::getArrivals)
+                .flatMap(Collection::stream)
+                .filter(arrival -> arrival.getStop().getId().equals(stopId))
+                .collect(toList());
+    }
+
     public static List<TripUpdate> tripUpdates(String routeId) throws IOException {
+        return getUpdates()
+                .filter(tripUpdate -> tripUpdate.getRoute().getId().equals(routeId))
+                .collect(toList());
+    }
+
+    private static Stream<TripUpdate> getUpdates() throws IOException {
         return getFeed().getEntityList().stream()
                 .filter(GtfsRealtime.FeedEntity::hasTripUpdate)
                 .map(GtfsRealtime.FeedEntity::getTripUpdate)
-                .filter(tripUpdate -> tripUpdate.getTrip().getRouteId().equals(routeId))
-                .map(TripUpdate::fromGtfs)
-                .collect(toList());
+                .map(TripUpdate::fromGtfs);
     }
 
     private static GtfsRealtime.FeedMessage getFeed() throws IOException {

@@ -2,9 +2,6 @@ package gtfs;
 
 import com.google.transit.realtime.GtfsRealtime;
 
-import java.time.Instant;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.util.Collection;
 
 import static java.util.stream.Collectors.toList;
@@ -21,6 +18,14 @@ class TripUpdate {
     public static TripUpdate fromGtfs(GtfsRealtime.TripUpdate update) {
         return new TripUpdate(update.getTrip().getRouteId(),
                 update.getStopTimeUpdateList().stream().map(Arrival::fromGtfs).collect(toList()));
+    }
+
+    public Route getRoute() {
+        return route;
+    }
+
+    public Collection<Arrival> getArrivals() {
+        return arrivals;
     }
 
     @Override

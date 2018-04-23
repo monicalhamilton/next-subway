@@ -21,6 +21,22 @@ public class Stop implements GtfsIdentified {
     @CsvBindByName(column = "parent_station")
     private String parentStation;
 
+    public Stop() {
+    }
+
+    public Stop(String stopId, String stopName, double stopLatitude, double stopLongitude, String locationType, String parentStation) {
+        this.stopId = stopId;
+        this.stopName = stopName;
+        this.stopLatitude = stopLatitude;
+        this.stopLongitude = stopLongitude;
+        this.locationType = locationType;
+        this.parentStation = parentStation;
+    }
+
+    public static Stop fromUnknown(String stopId) {
+        return new Stop(stopId, "UNKNOWN", -1, -1, "UNKNOWN", null);
+    }
+
     @Override
     public String getId() {
         return stopId;
